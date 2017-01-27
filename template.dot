@@ -1,0 +1,112 @@
+strict digraph g{
+rankdir="TB";
+nodesep=0.5;
+ranksep=0.25;
+splines=line;
+forcelabels=false;
+
+// general
+node [style=filled, color="black", fontcolor="black", font="Consolas", fontsize="12pt"];
+edge [style=filled, color="black", fontcolor="black", font="Consolas", fontsize="12pt"];
+
+// branch names
+node [fixedsize=false, penwidth=0, fillcolor=none, shape=none, width=0, height=0, margin="0.05"];
+subgraph {
+    rank=same;
+    specs [label="Xenserver specs\nmaster", group="specs"];
+    master [label="master", group="master"];
+    staging [label="staging", group="staging"];
+    featA [label="feature A", group="featA"];
+    featB [label="feature B", group="featB"];
+}
+// tags
+node [shape=cds, fixedsize=false, fillcolor="#C6C6C6", penwidth=1]
+t1 [label="tag\nv0.1"]
+t2 [label="tag\nv0.2"]
+t3 [label="tag\nv0.3"]
+
+// graph
+node [width=0.3, height=0.3, fixedsize=true, shape=circle,penwidth=0]
+
+node  [group="specs", fillcolor="#FFE333"];
+s1 [label="s1"];
+s2 [label="s2"];
+s3 [label="s3"];
+s1 -> s2 -> s3;
+s3 -> specs [color="#b0b0b0", style=dashed, arrowhead=none ];
+
+node  [group="master", fillcolor="skyblue"];
+m1 [label="m1"];
+m2 [label="m2"];
+m3 [label="m3"];
+m1 -> m2 -> m3;
+m3 -> master [color="#b0b0b0", style=dashed, arrowhead=none ];
+
+node  [group="staging", fillcolor="magenta"];
+sta1 [label="sta1"];
+sta2 [label="sta2"];
+sta3 [label="sta3"];
+sta4 [label="sta4"];
+sta5 [label="sta5"];
+sta1 -> sta2 -> sta3 -> sta4 -> sta5;
+sta5 -> staging [color="#b0b0b0", style=dashed, arrowhead=none ];
+
+node  [group="featA", fillcolor="red"];
+fa1 [label="fa1"];
+fa2 [label="fa2"];
+fa3 [label="fa3"];
+fa4 [label="fa4"];
+fa5 [label="fa5"];
+fa6 [label="fa6"];
+fa1 -> fa2 -> fa3 -> fa4 -> fa5 -> fa6;
+fa6 -> featA [color="#b0b0b0", style=dashed, arrowhead=none ];
+
+node  [group="featB", fillcolor="red2"];
+fb1 [label="fb1"];
+fb2 [label="fb2"];
+fb3 [label="fb3"];
+fb4 [label="fb4"];
+fb1 -> fb2 -> fb3 -> fb4;
+fb4 -> featB [color="#b0b0b0", style=dashed, arrowhead=none ];
+
+//Feature A merge
+sta1 -> fa1;
+fa2 -> sta2;
+fa4 -> sta4;
+fa6 -> sta5;
+//Feature B merge
+fb3 -> sta3;
+sta2 -> fb3;
+sta3 -> fa4;
+sta1 -> fb1;
+//Staging branch merge to master
+subgraph  {
+    rank="same";
+    sta1 -> m1 [label="Integ. slot #1"];
+}
+subgraph  {
+    rank="same";
+    sta3 -> m2 [label="Integ. slot #2"];
+}
+subgraph  {
+    rank="same";
+    sta5 -> m3 [label="Integ. slot #3"];
+}
+// tags connections
+edge [color="#b0b0b0", style=dotted, len=0.3, arrowhead=none, penwidth=1];
+subgraph  {
+    rank="same";
+    m1 -> t1;
+    t1 -> s1;
+}
+subgraph  {
+    rank="same";
+    m2 -> t2 ;
+    t2 -> s2 ;
+}
+subgraph  {
+    rank="same";
+    m3 -> t3;
+    t3 -> s3;
+}
+}

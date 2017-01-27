@@ -1,0 +1,85 @@
+strict digraph g{
+rankdir="TB";
+nodesep=0.5;
+ranksep=0.25;
+splines=line;
+forcelabels=false;
+
+// general
+node [style=filled, color="black", fontcolor="black", font="Consolas", fontsize="12pt"];
+edge [style=filled, color="black", fontcolor="black", font="Consolas", fontsize="12pt"];
+
+// branch names
+node [fixedsize=false, penwidth=0, fillcolor=none, shape=none, width=0, height=0, margin="0.05"];
+subgraph {
+    rank=same;
+    specs [label="Xenserver specs\nmaster", group="specs"];
+    master [label="master", group="master"];
+    featA [label="feature A", group="featA"];
+    featB [label="feature B", group="featB"];
+}
+// tags
+node [shape=cds, fixedsize=false, fillcolor="#C6C6C6", penwidth=1]
+t1 [label="tag\nv0.1"]
+t2 [label="tag\nv0.2"]
+// graph
+node [width=0.3, height=0.3, fixedsize=true, shape=circle,penwidth=0]
+
+//specs
+node  [group="specs", fillcolor="olivedrab1"];
+s1 [label="s1"];
+s2 [label="s2"];
+s1 -> s2;
+s2 -> specs [color="#b0b0b0", style=dashed, arrowhead=none ];
+
+
+node  [group="master", fillcolor="skyblue"];
+ma1 [label="ma1"];
+ma2 [label="ma2"];
+ma3 [label="ma3"];
+ma4 [label="ma4"];
+ma5 [label="ma5"];
+ma1 -> ma2 -> ma3 -> ma4 -> ma5;
+ma5 -> master [color="#b0b0b0", style=dashed, arrowhead=none ];
+
+node  [group="featA", fillcolor="red"];
+fa1 [label="fa1"];
+fa2 [label="fa2"];
+fa3 [label="fa3"];
+fa4 [label="fa4"];
+fa5 [label="fa5"];
+fa1 -> fa2 -> fa3 -> fa4 -> fa5;
+fa5 -> featA [color="#b0b0b0", style=dashed, arrowhead=none ];
+
+node  [group="featB", fillcolor="red2"];
+fb1 [label="fb1"];
+fb2 [label="fb2"];
+fb3 [label="fb3"];
+fb4 [label="fb4"];
+fb1 -> fb2 -> fb3 -> fb4;
+fb4 -> featB [color="#b0b0b0", style=dashed, arrowhead=none ];
+
+//Feature A merge
+ma1 -> fa1;
+fa2 -> ma2;
+fa4 -> ma4;
+fa5 -> ma5;
+//Feature B merge
+fb3 -> ma3;
+ma2 -> fb3;
+ma3 -> fa4;
+ma1 -> fb1;
+// tags connections
+//edge [color="#b0b0b0", style=dotted, len=0.3, arrowhead=none, penwidth=1];
+edge [color="#b0b0b0", style=dotted, arrowhead=none, penwidth=1];
+subgraph  {
+    rank="same";
+    t1 -> ma1;
+    ma1 -> s1 [label="Integ. slot#1"];
+}
+subgraph  {
+    rank="same";
+    t2 -> ma3 ;
+    ma3 -> s2 [label="Integ. slot#2"];
+}
+}
