@@ -1,0 +1,53 @@
+strict digraph g{
+rankdir="LR";
+nodesep=0.5;
+ranksep=0.25;
+splines=line;
+forcelabels=false;
+
+// general
+node [style=filled, color="black", fontcolor="black", font="Consolas", fontsize="12pt"];
+edge [style=filled, color="black", fontcolor="black", font="Consolas", fontsize="12pt"];
+
+// branch names
+node [fixedsize=false, penwidth=0, fillcolor=none, shape=none, width=0, height=0, margin="0.05"];
+release1;
+release2;
+release3;
+master;
+// Master branch
+node [width=0.3, height=0.3, fixedsize=true, shape=circle,penwidth=0,fillcolor="skyblue"];
+ma1 [label="ma1"];
+ma2 [label="ma2"];
+ma5 [label="ma5"];
+// tags
+node [shape=cds, fixedsize=false,penwidth=0]
+tma0 [label="tag\n1.0.0"];
+tma1 [label="tag\n1.1.0"];
+tma2 [label="tag\n1.2.0"];
+tma3 [label="tag\n1.3.0"];
+//release branches
+node [fillcolor="red"];
+rel101 [label="tag\n1.0.1"];
+rel102 [label="tag\n1.0.2"];
+rel103 [label="tag\n1.0.3"];
+node [fillcolor="plum"];
+rel111 [label="tag\n1.1.1"];
+rel112 [label="tag\n1.1.2"];
+node [fillcolor="red2"];
+rel131 [label="tag\n1.3.1"];
+rel132 [label="tag\n1.3.2"];
+
+// graph
+subgraph{
+rank=same;
+ma1 -> tma0 -> ma2 -> tma1 -> tma2 -> tma3 ->  ma5;
+ma5 -> master [color="#b0b0b0", style=dashed, arrowhead=none ];
+}
+tma0 -> rel101 -> rel102 -> rel103;
+rel103 -> release1 [color="#b0b0b0", style=dashed, arrowhead=none ];
+tma1 -> rel111 -> rel112;
+rel112 -> release2 [color="#b0b0b0", style=dashed, arrowhead=none ];
+tma3 -> rel131 -> rel132;
+rel132 -> release3 [color="#b0b0b0", style=dashed, arrowhead=none ];
+}

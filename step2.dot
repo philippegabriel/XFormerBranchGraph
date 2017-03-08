@@ -75,11 +75,11 @@ edge [color="#b0b0b0", style=dotted, arrowhead=none, penwidth=1];
 subgraph  {
     rank="same";
     t1 -> ma1;
-    ma1 -> s1 [label="Integ. slot#1"];
+    ma1 -> s1 [label="spec file points to v0.1 tag"];
 }
 subgraph  {
     rank="same";
     t2 -> ma3 ;
-    ma3 -> s2 [label="Integ. slot#2"];
+    ma3 -> s2 [label="spec file points to v0.2 tag"];
 }
 }

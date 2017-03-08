@@ -13,8 +13,8 @@ edge [style=filled, color="black", fontcolor="black", font="Consolas", fontsize=
 node [fixedsize=false, penwidth=0, fillcolor=none, shape=none, width=0, height=0, margin="0.05"];
 subgraph {
     rank=same;
-    master [label="master", group="master"];
-    staging [label="staging", group="staging"];
+    master [label="trunk\n/master", group="trunk"];
+    staging [label="trunk-ring0\n/master", group="trunk-ring0"];
     featA [label="feature A", group="featA"];
     featB [label="feature B", group="featB"];
 }
@@ -69,14 +69,14 @@ sta1 -> fb1;
 //Staging branch merge to master
 subgraph  {
     rank="same";
-    sta1 -> m1 [label="Integ. slot #1"];
+    sta1 -> m1 [label="Integ. slot #1 B2B merge"];
 }
 subgraph  {
     rank="same";
-    sta3 -> m2 [label="Integ. slot #2"];
+    sta3 -> m2 [label="Integ. slot #2 B2B merge"];
 }
 subgraph  {
     rank="same";
-    sta5 -> m3 [label="Integ. slot #3"];
+    sta5 -> m3 [label="Integ. slot #3 B2B merge"];
 }
 }
