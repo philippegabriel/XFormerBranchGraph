@@ -13,9 +13,9 @@ edge [style=filled, color="black", fontcolor="black", font="Consolas", fontsize=
 //node [shape=circle,width=0, height=0, margin="0.05"];
 node [width=0.3, height=0.3, fixedsize=true, shape=circle,penwidth=0]
 node [fillcolor="green"];
-xsm1 [label="xsm1"];
-xstx [label="xstx1"];
-xsre [label="xsre1"];
+xsm1 [label="sha1"];
+xstx [label="sha1"];
+xsre [label="sha1"];
 node [fillcolor="cyan"];
 cma1 [shape=cds,label="tag\n1.0.0"];
 //node [width=0.3, height=0.3, fixedsize=true, shape=circle,penwidth=0]
@@ -24,6 +24,8 @@ cma3 [label="sha1"];
 cma4 [label="sha1\nfix2"];
 cma5 [label="sha1"];
 cma6 [label="sha1"];
+cma7 [label="sha1\nfix3"];
+cma8 [label="sha1"];
 node [fillcolor="red"];
 clcm1 [shape=cds,label="tag\n1.0.0"];
 clcm2 [shape=cds,label="tag\n1.0.1"];
@@ -40,9 +42,9 @@ XenserverSpecsTeamX[label="xenserver-specs/teamX/master"];
 XenserverSpecsRelEly[label="xenserver-specs/release/ely/master"];
 XenserverSpecsMaster[label="xenserver-specs/master"];
 ComponentMaster[label="component/master"];
-ComponentLCM[label="component/lcm"];
-XSSpecsUPD1[label="xenserver-specs/upd/123"];
-XSSpecsUPD2[label="xenserver-specs/upd/124"];
+ComponentLCM[label="component/lcm/ely"];
+XSSpecsUPD1[label="xenserver-specs/release/ely/UPD-123"];
+XSSpecsUPD2[label="xenserver-specs/release/ely/UPD-124"];
 XSSpecsLCM[label="xenserver-specs/release/ely/lcm"];
 
 //graph
@@ -64,13 +66,13 @@ upd0 -> XSSpecsUPD2 [style="invis"];
 XSSpecsUPD2 -> upd1;
 XSSpecsLCM -> xlcm0 -> xlcm1 -> xlcm2;
 edge [style=filled, arrowhead=normal];
-cma1 -> cma2 -> cma3 -> cma4 -> cma5 -> cma6;
+cma1 -> cma2 -> cma3 -> cma4 -> cma5 -> cma6 -> cma7 -> cma8;
 clcm1 -> clcm2 -> clcm3;
 //Xenserver specs - master, release pointers
 edge [style=filled, arrowhead=none , weight=1;label="points to",color=blue];
 subgraph{rank=same;xsre -> cma1;}
-subgraph{rank=same;xsm1 -> cma3;}
-subgraph{rank=same;xstx -> cma6;}
+subgraph{rank=same;xsm1 -> cma6;}
+subgraph{rank=same;xstx -> cma8;}
 
 //Pull requests
 edge [style=filled, arrowhead=normal , label="pull\nrequest",color=black];
