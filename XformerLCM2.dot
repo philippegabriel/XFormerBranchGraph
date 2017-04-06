@@ -1,0 +1,87 @@
+strict digraph g{
+rankdir="LR";
+//nodesep=0.5;
+//ranksep=0.25;
+splines=line;
+forcelabels=false;
+
+// general
+node [style=filled, color="black", fontcolor="black", font="Consolas", fontsize="12pt",fixedsize=false,penwidth=0];
+edge [style=filled, color="black", fontcolor="black", font="Consolas", fontsize="12pt"];
+
+// tags
+//node [shape=circle,width=0, height=0, margin="0.05"];
+node [width=0.3, height=0.3, fixedsize=true, shape=circle,penwidth=0]
+node [fillcolor="green"];
+xsm1 [label="sha1"];
+xstx [label="sha1"];
+xsre [label="sha1"];
+node [fillcolor="cyan"];
+cma1 [shape=cds,label="tag\n1.0.0"];
+//node [width=0.3, height=0.3, fixedsize=true, shape=circle,penwidth=0]
+cma2 [label="sha1\nfix1"];
+cma3 [label="sha1\nfix2"];
+cma4 [label="sha1\nfix3"];
+cma5 [label="sha1"];
+cma6 [label="sha1"];
+cma7 [label="sha1\nfix3"];
+cma8 [label="sha1"];
+node [fillcolor="red"];
+clcm1 [shape=cds,label="tag\n1.0.0"];
+clcm2 [shape=circle,label="",width=0, height=0];
+clcm3 [shape=circle,label="",width=0, height=0];
+clcm4 [shape=cds,label="tag\n1.0.1"];
+node [shape=circle];
+upd1 [label="sha1"];
+xlcm1 [label="sha1"];
+xlcm2 [label="sha1"];
+// branch names
+node [color="#b0b0b0", style=dashed, arrowhead=none,fixedsize=false, penwidth=0, fillcolor=none, shape=none, width=0, height=0, margin="0.05"];
+XenserverSpecsTeamX[label="xenserver-specs/teamX/master"];
+XenserverSpecsRelEly[label="xenserver-specs/release/ely/master"];
+XenserverSpecsMaster[label="xenserver-specs/master"];
+ComponentMaster[label="component/master"];
+ComponentLCM[label="component/lcm/ely"];
+XSSpecsUPD2[label="xenserver-specs/release/ely/UPD-124"];
+XSSpecsLCM[label="xenserver-specs/release/ely/lcm"];
+
+//graph
+subgraph{
+node [color="#b0b0b0", style=dashed, arrowhead=none];
+edge [style="invis"];
+rank=same;
+XenserverSpecsTeamX -> XenserverSpecsMaster -> XenserverSpecsRelEly -> ComponentMaster -> ComponentLCM -> XSSpecsUPD2  -> XSSpecsLCM;
+}
+//edge [color="#b0b0b0", style=dashed, arrowhead=none ];
+edge [style=dashed, arrowhead=none ,weight=100];
+XenserverSpecsRelEly -> xsre;
+XenserverSpecsMaster -> xsm1;
+XenserverSpecsTeamX -> xstx;
+ComponentMaster -> cma1;
+ComponentLCM -> clcm1;
+XSSpecsUPD2 -> upd1;
+XSSpecsLCM  -> xlcm1 -> xlcm2;
+edge [style=filled, arrowhead=normal];
+cma1 -> cma2 -> cma3 -> cma4 -> cma5 -> cma6 -> cma7 -> cma8;
+clcm1 -> clcm2 [arrowhead=none]; 
+clcm2 -> clcm3 [arrowhead=none]; 
+clcm3 -> clcm4;
+//Xenserver specs - master, release pointers
+edge [style=filled, arrowhead=none , weight=1;label="points to",color=blue];
+subgraph{rank=same;xsre -> cma1;}
+subgraph{rank=same;xsm1 -> cma6;}
+subgraph{rank=same;xstx -> cma8;}
+
+//Pull requests
+edge [style=filled, arrowhead=normal , label="pull\nrequest",color=black];
+subgraph{rank=same;cma1 -> clcm1;}
+subgraph{rank=same;cma2 -> clcm2[label="Pending\nPull\nrequest",arrowhead="tee"];}
+subgraph{rank=same;cma3 -> clcm3[label="Pending\nPull\nrequest",arrowhead="tee"];}
+subgraph{rank=same;cma4 -> clcm4;}
+//xlcm0 -> upd0;
+//upd0 -> xlcm1;
+//upd0 -> clcm2 [arrowhead=none ,label="points to",color=blue];
+xlcm1 -> upd1;
+upd1 -> xlcm2;
+subgraph{rank=same;upd1 -> clcm4 [arrowhead=none ,label="points to",color=blue];}
+}
