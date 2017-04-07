@@ -37,13 +37,13 @@ xlcm1 [label="sha1"];
 xlcm2 [label="sha1"];
 // branch names
 node [color="#b0b0b0", style=dashed, arrowhead=none,fixedsize=false, penwidth=0, fillcolor=none, shape=none, width=0, height=0, margin="0.05"];
-XenserverSpecsTeamX[label="xenserver-specs/teamX/master"];
-XenserverSpecsRelEly[label="xenserver-specs/release/ely/master"];
-XenserverSpecsMaster[label="xenserver-specs/master"];
-ComponentMaster[label="component/master"];
-ComponentLCM[label="component/lcm/ely"];
-XSSpecsUPD2[label="xenserver-specs/release/ely/UPD-124"];
-XSSpecsLCM[label="xenserver-specs/release/ely/lcm"];
+XenserverSpecsTeamX[label="xenserver-specs:   teamX/master"];
+XenserverSpecsRelEly[label="xenserver-specs:   release/ely/master"];
+XenserverSpecsMaster[label="xenserver-specs:   master"];
+ComponentMaster[label="component:   master"];
+ComponentLCM[label="component:   lcm/ely"];
+XSSpecsUPD2[label="xenserver-specs:   release/ely/UPD-124"];
+XSSpecsLCM[label="xenserver-specs:   release/ely/lcm"];
 
 //graph
 subgraph{
@@ -70,7 +70,7 @@ clcm3 -> clcm4;
 edge [style=filled, arrowhead=none , weight=1;label="points to",color=blue];
 subgraph{rank=same;xsre -> cma1;}
 subgraph{rank=same;xsm1 -> cma6;}
-subgraph{rank=same;xstx -> cma8;}
+subgraph{rank=same;xstx -> cma8 [label="pinned\nto HEAD"];}
 
 //Pull requests
 edge [style=filled, arrowhead=normal , label="pull\nrequest",color=black];
@@ -81,6 +81,7 @@ subgraph{rank=same;cma4 -> clcm4;}
 //xlcm0 -> upd0;
 //upd0 -> xlcm1;
 //upd0 -> clcm2 [arrowhead=none ,label="points to",color=blue];
+edge [label=""];
 xlcm1 -> upd1;
 upd1 -> xlcm2;
 subgraph{rank=same;upd1 -> clcm4 [arrowhead=none ,label="points to",color=blue];}
