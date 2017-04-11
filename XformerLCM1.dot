@@ -43,7 +43,7 @@ XenserverSpecsTeamX[label="xenserver-specs:\nteamX/master",fillcolor="darkoliveg
 XenserverSpecsRelEly[label="xenserver-specs:\nrelease/ely/master",fillcolor="darkolivegreen1"];
 XenserverSpecsMaster[label="xenserver-specs:\nmaster",fillcolor="darkolivegreen1"];
 ComponentMaster[label="component:\nmaster",fillcolor="azure2"];
-ComponentLCM[label="component:\nlcm/ely",fillcolor="azure2"];
+ComponentLCM[label="component:\nely/lcm",fillcolor="azure2"];
 XSSpecsUPD1[label="xenserver-specs:\nrelease/ely/UPD-123",fillcolor="darkolivegreen1"];
 XSSpecsUPD2[label="xenserver-specs:\nrelease/ely/UPD-124",fillcolor="darkolivegreen1"];
 XSSpecsLCM[label="xenserver-specs:\nrelease/ely/lcm",fillcolor="darkolivegreen1"];
