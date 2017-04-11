@@ -29,7 +29,8 @@ cma8 [label="sha1"];
 clcm1 [width=0, height=0,shape=none,label=""];
 clcm2 [shape=circle,label="",width=0, height=0];
 clcm3 [shape=circle,label="",width=0, height=0];
-clcm4 [shape=cds,width=0.5, height=0.5,label="tag\n1.0.1"];
+clcm4 [label="sha1"];
+clcm5 [shape=cds,width=0.5, height=0.5,label="tag\n1.0.1"];
 node [fillcolor="green"];
 node [shape=circle];
 upd1 [label="sha1"];
@@ -68,7 +69,7 @@ edge [style=filled, arrowhead=normal];
 cma1 -> cma2 -> cma3 -> cma4 -> cma5 -> cma6 -> cma7 -> cma8;
 clcm1 -> clcm2 [arrowhead=none]; 
 clcm2 -> clcm3 [arrowhead=none]; 
-clcm3 -> clcm4;
+clcm3 -> clcm4 -> clcm5;
 //Xenserver specs - master, release pointers
 edge [style=filled, arrowhead=none , weight=1;label="points\nto",color=forestgreen];
 subgraph{rank=same;xsre -> cma1;}
@@ -88,5 +89,5 @@ clcm4 -> upd1 [arrowhead=none ,label="points to",color=green];}
 edge [label=""];
 xlcm1 -> upd1;
 upd1 -> xlcm2;
-//upd1 -> clcm4 [arrowhead=none ,label="points to",color=green];
+clcm5 -> xlcm2 [arrowhead=none ,label="points to",color=green];
 }
