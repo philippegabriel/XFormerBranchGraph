@@ -87,8 +87,11 @@ subgraph{rank=same;cma4 -> clcm3;}
 edge [label=""];
 xlcm0 -> upd0;
 upd0 -> xlcm1;
-upd0 -> clcm2 [arrowhead=none ,label="points\nto",color=green];
+subgraph{rank=same;clcm2 -> xlcm1 [arrowhead=none ,label="points\nto",color=green];}
+//subgraph{rank=same;
+//clcm2 -> updInvis [arrowhead=none ,label="points\nto",color=green];
+//updInvis -> xlcm1 [arrowhead=none ,label="points\nto",color=green];}
 xlcm1 -> upd1;
 upd1 -> xlcm2;
-upd1 -> clcm3 [arrowhead=none ,label="points\nto",color=green];
+subgraph{rank=same;clcm3 -> xlcm2 [arrowhead=none ,label="points\nto",color=green];}
 }
