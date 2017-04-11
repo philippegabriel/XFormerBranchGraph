@@ -20,14 +20,18 @@ node [fillcolor="cyan"];
 cma1 [shape=cds,width=0.5, height=0.5,label="tag\n1.0.0"];
 //node [width=0.3, height=0.3, fixedsize=true, shape=circle,penwidth=0]
 cma2 [label="sha1\nfix1"];
-cma3 [shape=cds,width=0.5, height=0.5,label="tag\n1.1.0"];
-cma4 [label="sha1\nfix2"];
-cma5 [label="sha1"];
-cma6 [shape=cds,width=0.5, height=0.5,label="tag\n1.2.0"];
-cma7 [label="sha1\nfix3"];
-cma8 [label="sha1"];
+cma3 [label="sha1\nfix2"];
+cma4 [shape=cds,width=0.5, height=0.5,label="tag\n1.1.0"];
+cma5 [label="sha1\nfix3"];
+cma6 [label="sha1"];
+cma7 [shape=cds,width=0.5, height=0.5,label="tag\n1.2.0"];
+cma8 [label="sha1\nfix4"];
+cma9 [label="sha1"];
 clcm1 [width=0, height=0,shape=none,label=""];
+clcm1a [label="sha1"];
+clcm1b [label="sha1"];
 clcm2 [shape=cds,width=0.5, height=0.5,label="tag\n1.0.1"];
+clcm2a [label="sha1"];
 clcm3 [shape=cds,width=0.5, height=0.5,label="tag\n1.0.2"];
 node [fillcolor="green"];
 node [shape=circle];
@@ -69,29 +73,29 @@ upd0 -> XSSpecsUPD2 [style="invis"];
 XSSpecsUPD2 -> upd1;
 XSSpecsLCM -> xlcm0 -> xlcm1 -> xlcm2;
 edge [style=filled, arrowhead=normal];
-cma1 -> cma2 -> cma3 -> cma4 -> cma5 -> cma6 -> cma7 -> cma8;
-clcm1 -> clcm2 -> clcm3;
+cma1 -> cma2 -> cma3 -> cma4 -> cma5 -> cma6 -> cma7 -> cma8 -> cma9;
+clcm1 -> clcm1a -> clcm1b -> clcm2 -> clcm2a -> clcm3;
 //Xenserver specs - master, release pointers
 edge [style=filled, arrowhead=none , weight=1;label="points\nto",color=forestgreen];
 subgraph{rank=same;xsre -> cma1;}
-subgraph{rank=same;xsm1 -> cma6;}
-subgraph{rank=same;xstx -> cma8 [label="pinned\nto HEAD"];}
+subgraph{rank=same;xsm1 -> cma7;}
+subgraph{rank=same;xstx -> cma9 [label="pinned\nto HEAD"];}
 
 //Pull requests
 edge [style=filled, arrowhead=normal,color=black];
 edge [label="git\nbranch"];
-subgraph{rank=same;cma1 -> clcm1;}
+subgraph{rank=same;cma1 -> clcm1 [arrowhead=none];}
 edge [label="pull\nrequest"];
-subgraph{rank=same;cma2 -> clcm2;}
-subgraph{rank=same;cma4 -> clcm3;}
+subgraph{rank=same;cma2 -> clcm1a;}
+subgraph{rank=same;cma3 -> clcm1b;}
+subgraph{rank=same;cma5 -> clcm2a;}
 edge [label=""];
 xlcm0 -> upd0;
 upd0 -> xlcm1;
+subgraph{rank=same;clcm1b -> upd0 [arrowhead=none ,label="points\nto",color=green];}
 subgraph{rank=same;clcm2 -> xlcm1 [arrowhead=none ,label="points\nto",color=green];}
-//subgraph{rank=same;
-//clcm2 -> updInvis [arrowhead=none ,label="points\nto",color=green];
-//updInvis -> xlcm1 [arrowhead=none ,label="points\nto",color=green];}
 xlcm1 -> upd1;
 upd1 -> xlcm2;
+subgraph{rank=same;clcm2a -> upd1 [arrowhead=none ,label="points\nto",color=green];}
 subgraph{rank=same;clcm3 -> xlcm2 [arrowhead=none ,label="points\nto",color=green];}
 }
