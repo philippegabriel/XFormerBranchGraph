@@ -64,12 +64,13 @@ XenserverSpecsTeamX -> xstx;
 ComponentMaster -> cma1;
 ComponentLCM -> clcm1;
 XSSpecsUPD2 -> upd1;
-XSSpecsLCM -> xlcm1 -> xlcm2;
+XSSpecsLCM -> xlcm1;
 edge [style=filled, arrowhead=normal];
 cma1 -> cma2 -> cma3 -> cma4 -> cma5 -> cma6 -> cma7 -> cma8;
 clcm1 -> clcm2 [arrowhead=none]; 
 clcm2 -> clcm3 [arrowhead=none]; 
 clcm3 -> clcm4 -> clcm5;
+xlcm1 -> xlcm2;
 //Xenserver specs - master, release pointers
 edge [style=filled, arrowhead=none , weight=1;label="points\nto",color=forestgreen];
 subgraph{rank=same;xsre -> cma1;}
@@ -83,11 +84,9 @@ subgraph{rank=same;cma1 -> clcm1;}
 edge [label="pending\npull\nrequest"];
 subgraph{rank=same;cma2 -> clcm2[arrowhead="tee"];}
 subgraph{rank=same;cma3 -> clcm3[arrowhead="tee"];}
-edge [label="pull\nrequest"];
 subgraph{rank=same;cma4 -> clcm4;
 clcm4 -> upd1 [arrowhead=none ,label="points to",color=green];}
-edge [label=""];
-xlcm1 -> upd1;
-upd1 -> xlcm2;
+xlcm1 -> upd1 [label=""];
+upd1 -> xlcm2 [label="pull\nrequest"];
 clcm5 -> xlcm2 [arrowhead=none ,label="points to",color=green];
 }

@@ -71,10 +71,11 @@ ComponentLCM -> clcm1;
 XSSpecsUPD1 -> upd0;
 upd0 -> XSSpecsUPD2 [style="invis"];
 XSSpecsUPD2 -> upd1;
-XSSpecsLCM -> xlcm0 -> xlcm1 -> xlcm2;
+XSSpecsLCM -> xlcm0;
 edge [style=filled, arrowhead=normal];
 cma1 -> cma2 -> cma3 -> cma4 -> cma5 -> cma6 -> cma7 -> cma8 -> cma9;
 clcm1 -> clcm1a -> clcm1b -> clcm2 -> clcm2a -> clcm3;
+xlcm0 -> xlcm1 -> xlcm2;
 //Xenserver specs - master, release pointers
 edge [style=filled, arrowhead=none , weight=1;label="points\nto",color=forestgreen];
 subgraph{rank=same;xsre -> cma1;}
@@ -89,13 +90,12 @@ edge [label="pull\nrequest"];
 subgraph{rank=same;cma2 -> clcm1a;}
 subgraph{rank=same;cma3 -> clcm1b;}
 subgraph{rank=same;cma5 -> clcm2a;}
-edge [label=""];
-xlcm0 -> upd0;
-upd0 -> xlcm1;
+xlcm0 -> upd0 [label=""];
+upd0 -> xlcm1 [label="pull\nrequest"];
 subgraph{rank=same;clcm1b -> upd0 [arrowhead=none ,label="points\nto",color=green];}
 subgraph{rank=same;clcm2 -> xlcm1 [arrowhead=none ,label="points\nto",color=green];}
-xlcm1 -> upd1;
-upd1 -> xlcm2;
+xlcm1 -> upd1 [label=""];
+upd1 -> xlcm2 [label="pull\nrequest"];
 subgraph{rank=same;clcm2a -> upd1 [arrowhead=none ,label="points\nto",color=green];}
 subgraph{rank=same;clcm3 -> xlcm2 [arrowhead=none ,label="points\nto",color=green];}
 }
