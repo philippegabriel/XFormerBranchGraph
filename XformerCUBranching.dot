@@ -1,0 +1,107 @@
+strict digraph g{
+rankdir="LR";
+//nodesep=0.5;
+//ranksep=0.25;
+splines=line;
+forcelabels=false;
+
+// general
+node [style=filled, color="black", fontcolor="black", font="Consolas", fontsize="12pt",fixedsize=false,penwidth=0];
+edge [style=filled, color="black", fontcolor="black", font="Consolas", fontsize="12pt"];
+
+// tags
+//node [shape=circle,width=0, height=0, margin="0.05"];
+node [width=0.3, height=0.3, fixedsize=true, shape=circle,penwidth=0]
+node [fillcolor=forestgreen];
+xsm1 [label="sha1"];
+xstx [label="sha1"];
+xsre [label="sha1"];
+node [fillcolor="cyan"];
+cma1 [shape=cds,width=0.5, height=0.5,label="tag\n1.0.0"];
+//node [width=0.3, height=0.3, fixedsize=true, shape=circle,penwidth=0]
+//cma2 [label="sha1\nfix1"];
+//cma3 [label="sha1\nfix2"];
+cma4 [shape=cds,width=0.5, height=0.5,label="tag\n1.1.0"];
+cma5 [shape=cds,width=0.5, height=0.5,label="tag\n1.2.0"];
+cma6 [label="sha1\nfix3"];
+cma7 [shape=cds,width=0.5, height=0.5,label="tag\n1.3.0"];
+cma8 [label="sha1\nfix4"];
+cma9 [label="sha1"];
+clcm1 [width=0, height=0,shape=none,label=""];
+//clcm1a [label="sha1"];
+//clcm1b [label="sha1"];
+clcm2 [shape=cds,width=0.5, height=0.5,label="tag\n1.0.1"];
+clcm2a [label="sha1"];
+clcm3 [shape=cds,width=0.5, height=0.5,label="tag\n1.0.2"];
+cf1 [width=0, height=0,shape=none,label=""];
+cf2 [label="sha1"];
+cf3 [label="sha1"];
+ch1 [width=0, height=0,shape=none,label=""];
+ch2 [label="sha1"];
+ch3 [label="sha1"];
+node [fillcolor="green"];
+node [shape=circle];
+xsh0 [label="sha1"];
+xsh1 [label="sha1"];
+xlcm0 [label="sha1"];
+xlcm1 [label="sha1"];
+// branch names
+node [width=1.5, height=0.5,shape=parallelogram,penwidth=0]
+//node [color="#b0b0b0", style=dashed, arrowhead=none,fixedsize=false, penwidth=0, fillcolor=none, shape=none, width=0, height=0, margin="0.05"];
+XenserverSpecsTeamX[label="xenserver-specs:\nteamX/master",fillcolor="darkolivegreen1"];
+XenserverSpecsRelEly[label="xenserver-specs:\nrelease/ely/master",fillcolor="darkolivegreen1"];
+XenserverSpecsMaster[label="xenserver-specs:\nmaster",fillcolor="darkolivegreen1"];
+ComponentFeat[label="component:\nfeature/REQ-411",fillcolor="azure2"];
+ComponentMaster[label="component:\nmaster",fillcolor="azure2"];
+ComponentLCM[label="component:\nely/lcm",fillcolor="azure2"];
+ComponentHonolulu[label="component:\nrelease/honolulu/master",fillcolor="azure2"];
+XSSpecsHonolulu[label="xenserver-specs:\nrelease/honolulu/master",fillcolor="darkolivegreen1"];
+XSSpecsLCM[label="xenserver-specs:\nrelease/ely/lcm",fillcolor="darkolivegreen1"];
+
+//graph
+subgraph{
+node [color="#b0b0b0", style=dashed, arrowhead=none];
+edge [style="invis"];
+rank=same;
+XenserverSpecsRelEly -> ComponentFeat -> ComponentMaster -> ComponentLCM -> ComponentHonolulu -> XSSpecsHonolulu  -> XSSpecsLCM;
+}
+//edge [color="#b0b0b0", style=dashed, arrowhead=none ];
+edge [style=dashed, arrowhead=none ,weight=100];
+XenserverSpecsRelEly -> xsre;
+xsre -> XenserverSpecsMaster [style="invis"];
+XenserverSpecsMaster -> xsm1;
+xsm1 -> XenserverSpecsTeamX [style="invis"];
+XenserverSpecsTeamX -> xstx;
+ComponentFeat -> cf1;
+ComponentMaster -> cma1;
+ComponentLCM -> clcm1;
+XSSpecsHonolulu -> xsh0;
+XSSpecsLCM -> xlcm0;
+ComponentHonolulu -> ch1;
+edge [style=filled, arrowhead=normal];
+cf1 -> cf2 -> cf3;
+cma1 -> cma4 -> cma5 -> cma6 -> cma7 -> cma8 -> cma9;
+clcm1 -> clcm2 -> clcm2a -> clcm3;
+ch1 -> ch2 -> ch3;
+xsh0 -> xsh1;
+xlcm0 -> xlcm1;
+//Xenserver specs - master, release pointers
+edge [style=filled, arrowhead=none , weight=1;label="points\nto",color=forestgreen];
+subgraph{rank=same;xsre -> cma1;}
+subgraph{rank=same;xsm1 -> cma7;}
+subgraph{rank=same;xstx -> cma9 [label="pinned\nto HEAD"];}
+
+//Pull requests
+subgraph{rank=same;cf1 -> cma4 [arrowhead=none,label="git\nbranch"];}
+subgraph{rank=same;cf3 -> cma5 [label="git\nmerge"];}
+edge [style=filled, arrowhead=normal,color=black];
+subgraph{rank=same;
+cma6 -> clcm2a [label="pull\nrequest\nor\nmerge?"];
+clcm2a -> ch3 [label="pull\nrequest\nor\nmerge?"];}
+subgraph{rank=same;clcm2 -> ch1 [arrowhead=none,label="git\nbranch"];}
+subgraph{rank=same;xsh0 -> xlcm0  [arrowhead=none,label="git\nbranch"];}
+subgraph{rank=same;ch3 -> xsh1 [arrowhead=none ,label="points\nto",color=green];}
+subgraph{rank=same;cma5 -> ch2 [label="pull\nrequest"];}
+subgraph{rank=same;clcm2 -> xlcm0 [arrowhead=none ,label="points\nto",color=green];}
+subgraph{rank=same;clcm3 -> xlcm1 [arrowhead=none ,label="points\nto",color=green];}
+}
