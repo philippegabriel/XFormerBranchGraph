@@ -31,26 +31,30 @@ clcm1 [width=0, height=0,shape=none,label=""];
 //clcm1a [label="sha1"];
 //clcm1b [label="sha1"];
 clcm2 [shape=cds,width=0.5, height=0.5,label="tag\n1.0.1"];
-clcm2a [label="sha1"];
 clcm3 [shape=cds,width=0.5, height=0.5,label="tag\n1.0.2"];
 clcm4 [shape=cds,width=0.5, height=0.5,label="tag\n1.0.3"];
+clcm5 [shape=cds,width=0.5, height=0.5,label="tag\n1.0.4"];
+clcm6 [shape=octagon,width=0.5, height=0.5,label="End\nof\nBranch"];
 cf1 [width=0, height=0,shape=none,label=""];
 cf2 [label="sha1"];
 cf3 [label="sha1"];
 ch1 [width=0, height=0,shape=none,label=""];
-ch2 [label="sha1"];
-ch3 [label="sha1"];
-ch4 [label="sha1"];
-ch5 [label="sha1"];
+ch2 [shape=cds,width=0.5, height=0.5,label="tag\n1.2.0"];
+ch3 [shape=cds,width=0.5, height=0.5,label="tag\n1.2.1"];
+ch4 [shape=cds,width=0.5, height=0.5,label="tag\n1.2.2"];
+ch5 [shape=cds,width=0.5, height=0.5,label="tag\n1.2.3"];
+ch6 [shape=plaintext,fillcolor=none,label="component\nLTSR LCM\nBranch\nGoing\nForward"];
 node [fillcolor="green"];
 node [shape=circle];
-xsh0 [label="sha1"];
+xsh0 [width=0, height=0,shape=none,label=""];
 xsh1 [label="sha1"];
 xsh2 [label="sha1\nSI"];
 xsh3 [label="sha1\nRTW"];
+xsh4 [shape=plaintext,fillcolor=none,label="Specs\nLTSR LCM\nBranch\nGoing\nForward"];
 xlcm0 [label="sha1"];
 xlcm1 [label="sha1"];
 xlcm2 [label="sha1"];
+xlcm3 [shape=octagon,width=0.5, height=0.5,label="End\nof\nBranch"];
 // branch names
 node [width=1.5, height=0.5,shape=parallelogram,penwidth=0]
 //node [color="#b0b0b0", style=dashed, arrowhead=none,fixedsize=false, penwidth=0, fillcolor=none, shape=none, width=0, height=0, margin="0.05"];
@@ -87,10 +91,12 @@ ComponentHonolulu -> ch1;
 edge [style=filled, arrowhead=normal];
 cf1 -> cf2 -> cf3;
 cma1 -> cma4 -> cma5 -> cma6 -> cma7 -> cma8 -> cma9;
-clcm1 -> clcm2 -> clcm2a -> clcm3 -> clcm4;
-ch1 -> ch2 -> ch3 -> ch4 -> ch5;
+clcm1 -> clcm2 -> clcm3 -> clcm4 -> clcm5 -> clcm6;
+ch1 -> ch2 -> ch3 -> ch4 -> ch5 ->ch6;
+ch5 ->ch6 [style=dashed, arrowhead=none];
 xsh0 -> xsh1 -> xsh2 -> xsh3;
-xlcm0 -> xlcm1 -> xlcm2;
+xsh3 -> xsh4 [style=dashed, arrowhead=none];
+xlcm0 -> xlcm1 -> xlcm2 ->xlcm3;
 //Xenserver specs - master, release pointers
 edge [style=filled, arrowhead=none , weight=1;label="points\nto",color=forestgreen];
 subgraph{rank=same;xsre -> cma1;}
@@ -98,22 +104,24 @@ subgraph{rank=same;xsm1 -> cma7;}
 subgraph{rank=same;xstx -> cma9 [label="pinned\nto HEAD"];}
 
 //Pull requests
-subgraph{rank=same;cf1 -> cma4 [arrowhead=none,label="git\nbranch"];}
-subgraph{rank=same;cf3 -> cma5 [label="git\nmerge"];}
+subgraph{rank=same;cf1 -> cma4 [color=black,arrowhead=none,label="git\nbranch"];}
+subgraph{rank=same;cf3 -> cma5 [color=black,arrowhead=normal,label="git\nmerge"];}
 edge [style=filled, arrowhead=normal,color=black];
 subgraph{rank=same;
-cma6 -> clcm2a [label="pull\nrequest\nor\nmerge?"];
-clcm2a -> ch3 [label="pull\nrequest\nor\nmerge?"];}
+cma6 -> clcm3 [label="pull\nrequest\nor\nmerge?"];
+clcm3 -> ch3 [label="pull\nrequest\nor\nmerge?"];}
 subgraph{rank=same;clcm2 -> ch1 [arrowhead=none,label="git\nbranch"];}
 subgraph{rank=same;xsh0 -> xlcm0  [arrowhead=none,label="git\nbranch"];}
 subgraph{rank=same;ch3 -> xsh1 [arrowhead=none ,label="points\nto",color=green];}
 subgraph{rank=same;ch4 -> xsh2 [arrowhead=none ,label="points\nto",color=green];}
 subgraph{
 rank=same;
+cma8 -> clcm5 [arrowhead=normal,label="git\nmerge"];
+clcm5 -> ch5 [arrowhead=normal,label="git\nmerge"];
 ch5 -> xsh3 [arrowhead=none ,label="points\nto",color=green];
-clcm4 -> ch5 [arrowhead=none ,label="git merge"];}
+xsh3 -> xlcm2 [label="git\nmerge"];}
 subgraph{rank=same;cma5 -> ch2 [label="pull\nrequest"];}
 subgraph{rank=same;clcm2 -> xlcm0 [arrowhead=none ,label="points\nto",color=green];}
-subgraph{rank=same;clcm3 -> xlcm1 [arrowhead=none ,label="points\nto",color=green];}
-subgraph{rank=same;clcm4 -> xlcm2 [arrowhead=none ,label="points\nto",color=green];}
+subgraph{rank=same;clcm4 -> xlcm1 [arrowhead=none ,label="points\nto",color=green];}
+subgraph{rank=same;clcm5 -> xlcm2 [arrowhead=none ,label="points\nto",color=green];}
 }
