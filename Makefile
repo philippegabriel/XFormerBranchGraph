@@ -1,10 +1,10 @@
 .PHONY: clean deploy test
-targets=$(subst .dot,.png,$(shell ls *.dot))
-targets+=$(subst .dot,.svg,$(shell ls *.dot))
-all: clean $(targets) deploy
-%.png:%.dot
+targets=$(addprefix ./png/,$(subst .dot,.png,$(shell ls *.dot)))
+targets+=$(addprefix ./svg/,$(subst .dot,.svg,$(shell ls *.dot)))
+all: $(targets) deploy
+./png/%.png:%.dot
 	dot -Tpng -o$@ $<
-%.svg:%.dot
+./svg/%.svg:%.dot
 	dot -Tsvg -o$@ $<
 clean:
 	rm -f $(targets)
